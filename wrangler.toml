@@ -1,0 +1,35 @@
+# Wrangler TOML 配置文件，等价于原 JSON 版本
+
+"$schema" = "node_modules/wrangler/config-schema.json"
+name = "gwawog-top"
+main = ".open-next/worker.js"
+compatibility_date = "2025-04-01"
+compatibility_flags = ["nodejs_compat", "global_fetch_strictly_public"]
+upload_source_maps = true
+# 自定义域名路由绑定
+route = "gwawog.top/*"
+
+[build]
+command = "npm i @opennextjs/cloudflare@latest && npm i -D wrangler@latest && npm audit fix --force && opennextjs-cloudflare build"
+
+# 资源绑定配置
+[assets]
+directory = ".open-next/assets"
+binding = "ASSETS"
+
+# 可观测性配置
+[observability]
+enabled = true
+
+# Worker 的部署位置策略
+[placement]
+mode = "smart"
+
+# Worker 限制设置
+[limits]
+cpu_ms = 300000
+
+# 环境变量
+[vars]
+BASE_URL = "https://www.gwawog.top"
+
